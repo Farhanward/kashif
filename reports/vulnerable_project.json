@@ -1,0 +1,105 @@
+{
+  "root": "C:\\Projects\\kashif\\examples\\vulnerable_project",
+  "files": [
+    {
+      "path": "app.py",
+      "kind": "py",
+      "size": 366,
+      "lines": 22,
+      "symbols": [
+        "FunctionDef:run_user_command:8",
+        "FunctionDef:load_payload:12",
+        "FunctionDef:query_user:16",
+        "FunctionDef:cleanup:21"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "blob.bin",
+      "kind": "binary",
+      "size": 52,
+      "lines": 0,
+      "symbols": [],
+      "entropy": 4.169,
+      "magic": "PE/Windows executable"
+    }
+  ],
+  "findings": [
+    {
+      "code": "PY_SHELL_TRUE",
+      "severity": "critical",
+      "title": "subprocess مع shell=True",
+      "file": "app.py",
+      "line": 9,
+      "evidence": "subprocess.check_output(command, shell=True",
+      "cwe": "CWE-78"
+    },
+    {
+      "code": "OS_SYSTEM",
+      "severity": "high",
+      "title": "تنفيذ نظام مباشر",
+      "file": "app.py",
+      "line": 22,
+      "evidence": "os.system(",
+      "cwe": "CWE-78"
+    },
+    {
+      "code": "PICKLE_LOAD",
+      "severity": "high",
+      "title": "تحميل pickle غير آمن",
+      "file": "app.py",
+      "line": 13,
+      "evidence": "pickle.loads(",
+      "cwe": "CWE-502"
+    },
+    {
+      "code": "SQL_CONCAT",
+      "severity": "high",
+      "title": "SQL مبني بسلاسل",
+      "file": "app.py",
+      "line": 17,
+      "evidence": "SELECT * FROM users WHERE id = \" +",
+      "cwe": "CWE-89"
+    },
+    {
+      "code": "HARDCODED_SECRET",
+      "severity": "critical",
+      "title": "سر مضمّن في الكود",
+      "file": "app.py",
+      "line": 5,
+      "evidence": "API_KEY = \"sk_test_1234567890abcdef\"",
+      "cwe": "CWE-798"
+    },
+    {
+      "code": "SUSPICIOUS_STRING",
+      "severity": "high",
+      "title": "سلسلة مشبوهة داخل ثنائي",
+      "file": "blob.bin",
+      "line": 0,
+      "evidence": "powershell",
+      "cwe": "CWE-200"
+    },
+    {
+      "code": "SUSPICIOUS_STRING",
+      "severity": "high",
+      "title": "سلسلة مشبوهة داخل ثنائي",
+      "file": "blob.bin",
+      "line": 0,
+      "evidence": "password",
+      "cwe": "CWE-200"
+    }
+  ],
+  "stats": {
+    "file_count": 2,
+    "finding_count": 7,
+    "severity_counts": {
+      "critical": 2,
+      "high": 5
+    },
+    "kind_counts": {
+      "py": 1,
+      "binary": 1
+    }
+  }
+}

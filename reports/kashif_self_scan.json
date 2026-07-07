@@ -1,0 +1,276 @@
+{
+  "root": "C:\\Projects\\kashif",
+  "files": [
+    {
+      "path": ".gitignore",
+      "kind": "binary",
+      "size": 38,
+      "lines": 0,
+      "symbols": [],
+      "entropy": 3.873,
+      "magic": "5f5f707963616368"
+    },
+    {
+      "path": "pyproject.toml",
+      "kind": "toml",
+      "size": 222,
+      "lines": 10,
+      "symbols": [],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "README.md",
+      "kind": "md",
+      "size": 1667,
+      "lines": 38,
+      "symbols": [],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "kashif/cli.py",
+      "kind": "py",
+      "size": 2222,
+      "lines": 61,
+      "symbols": [
+        "FunctionDef:scan_command:13",
+        "FunctionDef:nvd_command:26",
+        "FunctionDef:parser:35",
+        "FunctionDef:main:55"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "kashif/datasets.py",
+      "kind": "py",
+      "size": 3690,
+      "lines": 98,
+      "symbols": [
+        "FunctionDef:_get_json:16",
+        "FunctionDef:_severity:31",
+        "FunctionDef:_cwes:40",
+        "FunctionDef:_description:50",
+        "FunctionDef:download_nvd:57"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "kashif/models.py",
+      "kind": "py",
+      "size": 986,
+      "lines": 48,
+      "symbols": [
+        "ClassDef:Finding:8",
+        "ClassDef:FileSummary:22",
+        "ClassDef:ScanReport:36",
+        "FunctionDef:to_dict:17",
+        "FunctionDef:to_dict:31",
+        "FunctionDef:to_dict:42"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "kashif/reports.py",
+      "kind": "py",
+      "size": 2067,
+      "lines": 50,
+      "symbols": [
+        "FunctionDef:scan_markdown:6",
+        "FunctionDef:nvd_markdown:33"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "kashif/scanner.py",
+      "kind": "py",
+      "size": 6521,
+      "lines": 128,
+      "symbols": [
+        "FunctionDef:_is_text:28",
+        "FunctionDef:_entropy:32",
+        "FunctionDef:_magic:40",
+        "FunctionDef:_python_symbols:52",
+        "FunctionDef:_scan_text:64",
+        "FunctionDef:_scan_binary:78",
+        "FunctionDef:scan_path:91"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "kashif/__init__.py",
+      "kind": "py",
+      "size": 22,
+      "lines": 1,
+      "symbols": [],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "tests/test_kashif.py",
+      "kind": "py",
+      "size": 869,
+      "lines": 25,
+      "symbols": [
+        "ClassDef:KashifTests:9",
+        "FunctionDef:test_scans_vulnerable_project:10",
+        "FunctionDef:test_extracts_python_symbols:18"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "examples/vulnerable_project/app.py",
+      "kind": "py",
+      "size": 366,
+      "lines": 22,
+      "symbols": [
+        "FunctionDef:run_user_command:8",
+        "FunctionDef:load_payload:12",
+        "FunctionDef:query_user:16",
+        "FunctionDef:cleanup:21"
+      ],
+      "entropy": 0.0,
+      "magic": ""
+    },
+    {
+      "path": "examples/vulnerable_project/blob.bin",
+      "kind": "binary",
+      "size": 52,
+      "lines": 0,
+      "symbols": [],
+      "entropy": 4.169,
+      "magic": "PE/Windows executable"
+    }
+  ],
+  "findings": [
+    {
+      "code": "SQL_CONCAT",
+      "severity": "high",
+      "title": "SQL مبني بسلاسل",
+      "file": "kashif/datasets.py",
+      "line": 86,
+      "evidence": "update(cwes) total += 1 if total >= limit: break start +",
+      "cwe": "CWE-89"
+    },
+    {
+      "code": "SQL_CONCAT",
+      "severity": "high",
+      "title": "SQL مبني بسلاسل",
+      "file": "kashif/scanner.py",
+      "line": 20,
+      "evidence": "SELECT|INSERT|UPDATE|DELETE).{0,120}(\\+|%",
+      "cwe": "CWE-89"
+    },
+    {
+      "code": "VERIFY_FALSE",
+      "severity": "medium",
+      "title": "تعطيل تحقق TLS",
+      "file": "kashif/scanner.py",
+      "line": 21,
+      "evidence": "verify=False",
+      "cwe": "CWE-295"
+    },
+    {
+      "code": "DOCKER_SOCKET",
+      "severity": "critical",
+      "title": "وصول Docker socket",
+      "file": "kashif/scanner.py",
+      "line": 24,
+      "evidence": "docker.sock",
+      "cwe": "CWE-269"
+    },
+    {
+      "code": "DOCKER_SOCKET",
+      "severity": "critical",
+      "title": "وصول Docker socket",
+      "file": "kashif/scanner.py",
+      "line": 85,
+      "evidence": "docker.sock",
+      "cwe": "CWE-269"
+    },
+    {
+      "code": "PY_SHELL_TRUE",
+      "severity": "critical",
+      "title": "subprocess مع shell=True",
+      "file": "examples/vulnerable_project/app.py",
+      "line": 9,
+      "evidence": "subprocess.check_output(command, shell=True",
+      "cwe": "CWE-78"
+    },
+    {
+      "code": "OS_SYSTEM",
+      "severity": "high",
+      "title": "تنفيذ نظام مباشر",
+      "file": "examples/vulnerable_project/app.py",
+      "line": 22,
+      "evidence": "os.system(",
+      "cwe": "CWE-78"
+    },
+    {
+      "code": "PICKLE_LOAD",
+      "severity": "high",
+      "title": "تحميل pickle غير آمن",
+      "file": "examples/vulnerable_project/app.py",
+      "line": 13,
+      "evidence": "pickle.loads(",
+      "cwe": "CWE-502"
+    },
+    {
+      "code": "SQL_CONCAT",
+      "severity": "high",
+      "title": "SQL مبني بسلاسل",
+      "file": "examples/vulnerable_project/app.py",
+      "line": 17,
+      "evidence": "SELECT * FROM users WHERE id = \" +",
+      "cwe": "CWE-89"
+    },
+    {
+      "code": "HARDCODED_SECRET",
+      "severity": "critical",
+      "title": "سر مضمّن في الكود",
+      "file": "examples/vulnerable_project/app.py",
+      "line": 5,
+      "evidence": "API_KEY = \"sk_test_1234567890abcdef\"",
+      "cwe": "CWE-798"
+    },
+    {
+      "code": "SUSPICIOUS_STRING",
+      "severity": "high",
+      "title": "سلسلة مشبوهة داخل ثنائي",
+      "file": "examples/vulnerable_project/blob.bin",
+      "line": 0,
+      "evidence": "powershell",
+      "cwe": "CWE-200"
+    },
+    {
+      "code": "SUSPICIOUS_STRING",
+      "severity": "high",
+      "title": "سلسلة مشبوهة داخل ثنائي",
+      "file": "examples/vulnerable_project/blob.bin",
+      "line": 0,
+      "evidence": "password",
+      "cwe": "CWE-200"
+    }
+  ],
+  "stats": {
+    "file_count": 12,
+    "finding_count": 12,
+    "severity_counts": {
+      "high": 7,
+      "medium": 1,
+      "critical": 4
+    },
+    "kind_counts": {
+      "binary": 2,
+      "toml": 1,
+      "md": 1,
+      "py": 8
+    }
+  }
+}
